@@ -85,24 +85,24 @@
           <h1 class="title is-1 publication-title">MVInpainter: Learning Multi-View Consistent Inpainting to Bridge 2D and 3D Editing</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="https://ewrfcas.github.io/">Chenjie Cao</a>,
+              <a href="https://ewrfcas.github.io/">Chenjie Cao</a><sup>1,2,3</sup>,
             </span>
             <span class="author-block">
-              <a href="https://scholar.google.com/citations?user=b1Q-k20AAAAJ">Chaohui Yu</a>,
+              <a href="https://scholar.google.com/citations?user=b1Q-k20AAAAJ">Chaohui Yu</a><sup>2,3</sup>,
             </span>
             <span class="author-block">
-              <a href="http://yanweifu.github.io/">Yanwei Fu</a>,
+              <a href="http://yanweifu.github.io/">Yanwei Fu</a><sup>1</sup>,
             </span>
             <span class="author-block">
-              <a href="https://scholar.google.com/citations?user=WCRGTHsAAAAJ">Fan Wang</a>,
+              <a href="https://scholar.google.com/citations?user=WCRGTHsAAAAJ">Fan Wang</a><sup>2,3</sup>,
             </span>
             <span class="author-block">
-              <a href="https://istbi.fudan.edu.cn/lnen/info/1157/2875.htm ">Xiangyang Xue</a>,
+              <a href="https://istbi.fudan.edu.cn/lnen/info/1157/2875.htm ">Xiangyang Xue</a><sup>1</sup>,
             </span>
           </div>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block">Fudan University, Alibaba DAMO Academy, Hupan Lab</span>
+            <span class="author-block"><sup>1</sup>Fudan University, <sup>2</sup>Alibaba DAMO Academy, <sup>3</sup>Hupan Lab</span>
           </div>
 
 <!--          <div class="is-size-6 publication-authors">-->
@@ -166,7 +166,6 @@
         <div class="content has-text-justified">
           <p>
             Novel View Synthesis (NVS) and 3D generation have recently achieved prominent improvements. However, these works mainly focus on confined categories or synthetic 3D assets, which are discouraged from generalizing to challenging in-the-wild scenes and fail to be employed with 2D synthesis directly. Moreover, these methods heavily depended on camera poses, limiting their real-world applications.
-            </br></br>
             To overcome these issues, we propose MVInpainter, re-formulating the 3D editing as a multi-view 2D inpainting task. Specifically, MVInpainter partially inpaints multi-view images with the reference guidance rather than intractably generating an entirely novel view from scratch, which largely simplifies the difficulty of in-the-wild NVS and leverages unmasked clues instead of explicit pose conditions.
             To ensure cross-view consistency, MVInpainter is enhanced by video priors from motion components and appearance guidance from concatenated reference key\&value attention.
             Furthermore, MVInpainter incorporates slot attention to aggregate high-level optical flow features from unmasked regions to control the camera movement with pose-free training and inference.
@@ -287,6 +286,7 @@
                class="interpolation-image"
                alt="Interpolate start reference image."/>
         </div>
+        </br></br>
 
         <h2 class="title is-4">Results of replacement</h2>
         <div class="columns is-vcentered interpolation-panel">
@@ -294,6 +294,7 @@
                class="interpolation-image"
                alt="Interpolate start reference image."/>
         </div>
+        </br></br>
 
         <h2 class="title is-4">Generalization of mask adaption</h2>
         <div class="columns is-vcentered interpolation-panel">
@@ -308,15 +309,15 @@
 </section>>
 
 
-<section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>
-      @article{
-      }
-    </code></pre>
-  </div>
-</section>
+<!--<section class="section" id="BibTeX">-->
+<!--  <div class="container is-max-desktop content">-->
+<!--    <h2 class="title">BibTeX</h2>-->
+<!--    <pre><code>-->
+<!--      @article{-->
+<!--      }-->
+<!--    </code></pre>-->
+<!--  </div>-->
+<!--</section>-->
 
 
 <footer class="footer">
