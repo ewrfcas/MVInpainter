@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="MVInpainter: Learning Multi-View Consistent Inpainting to Bridge 2D and 3D Editing.">
+  <meta name="keywords" content="Image Inpainting">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MVInpainter: Learning Multi-View Consistent Inpainting to Bridge 2D and 3D Editing</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+<!--  <link rel="icon" href="./static/images/favicon.svg">-->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+<!--  <div class="navbar-menu">-->
+<!--    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">-->
+<!--      <a class="navbar-item" href="">-->
+<!--      <span class="icon">-->
+<!--          <i class="fas fa-home"></i>-->
+<!--      </span>-->
+<!--      </a>-->
+
+<!--      <div class="navbar-item has-dropdown is-hoverable">-->
+<!--        <a class="navbar-link">-->
+<!--          More Research-->
+<!--        </a>-->
+<!--        <div class="navbar-dropdown">-->
+<!--          <a class="navbar-item" href="https://github.com/ewrfcas/MST_inpainting">-->
+<!--            MST_inpainting-->
+<!--          </a>-->
+<!--          <a class="navbar-item" href="https://github.com/DQiaole/ZITS_inpainting">-->
+<!--            ZITS_inpainting-->
+<!--          </a>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">MVInpainter: Learning Multi-View Consistent Inpainting to Bridge 2D and 3D Editing</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://ewrfcas.github.io/">Chenjie Cao</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=b1Q-k20AAAAJ">Chaohui Yu</a>,
+            </span>
+            <span class="author-block">
+              <a href="http://yanweifu.github.io/">Yanwei Fu</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=WCRGTHsAAAAJ">Fan Wang</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://istbi.fudan.edu.cn/lnen/info/1157/2875.htm ">Xiangyang Xue</a>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Fudan University, Alibaba DAMO Academy, Hupan Lab</span>
+          </div>
+
+<!--          <div class="is-size-6 publication-authors">-->
+<!--            <span class="author-block">* equal contributions</span>-->
+<!--          </div>-->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/ewrfcas/MVInpainter"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code and Model (coming soon)</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <center>
+      <img src="./static/images/teaser.jpg" width="1000px"/>
+      </center>
+<!--      <video id="teaser" autoplay muted loop height="100%">-->
+<!--        <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/teaser.mp4"-->
+<!--                type="video/mp4">-->
+<!--      </video>-->
+<!--      <h2 class="subtitle has-text-centered">-->
+<!--        Our proposed CasMTR can achieve precise matching for both source and target views.-->
+<!--      </h2>-->
+
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Novel View Synthesis (NVS) and 3D generation have recently achieved prominent improvements. However, these works mainly focus on confined categories or synthetic 3D assets, which are discouraged from generalizing to challenging in-the-wild scenes and fail to be employed with 2D synthesis directly. Moreover, these methods heavily depended on camera poses, limiting their real-world applications.
+            </br></br>
+            To overcome these issues, we propose MVInpainter, re-formulating the 3D editing as a multi-view 2D inpainting task. Specifically, MVInpainter partially inpaints multi-view images with the reference guidance rather than intractably generating an entirely novel view from scratch, which largely simplifies the difficulty of in-the-wild NVS and leverages unmasked clues instead of explicit pose conditions.
+            To ensure cross-view consistency, MVInpainter is enhanced by video priors from motion components and appearance guidance from concatenated reference key\&value attention.
+            Furthermore, MVInpainter incorporates slot attention to aggregate high-level optical flow features from unmasked regions to control the camera movement with pose-free training and inference.
+            Sufficient scene-level experiments on both object-centric and forward-facing datasets verify the effectiveness of MVInpainter, including diverse tasks, such as multi-view object removal, synthesis, insertion, and replacement.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Animation. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Overview</h2>
+
+        <!-- Interpolating. -->
+<!--        <div class="content has-text-justified">-->
+<!--          <p>-->
+<!--            We can also animate the scene by interpolating the deformation latent codes of two input-->
+<!--            frames. Use the slider here to linearly interpolate between the left frame and the right-->
+<!--            frame.-->
+<!--          </p>-->
+<!--        </div>-->
+          <br/>
+          <div class="columns is-vcentered interpolation-panel">
+            <img src="./static/images/overview.jpg"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."/>
+          </div>
+        <br>
+        (a) The overview of the proposed MVInpainter. MVInpainter-O is trained on object-centric data, while MVInpainter-F is trained on forward-facing data with a shared SD-inpainting backbone
+        of different LoRA/motion weights and masking strategies. The object-centric MVInpainter focuses on the object-level NVS, while the forward-facing one is devoted to object removal and scene-level
+        inpainting. (b) The Ref-KV is used in spatial self-attention blocks of denoising U-Net. (c) The slot-attention based flow grouping module is used to learn implicit pose features. Dashed boxes in (b)
+        and (c) mean feature concatenation.
+        </div>
+        <br/>
+      </div>
+    </div>
+    <!--/ Animation. -->
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Animation. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Masking Adaption</h2>
+          <br/>
+          <div class="columns is-vcentered interpolation-panel">
+            <img src="./static/images/mask.jpg"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."/>
+          </div>
+          <p>
+            To confirm the mask shape for inference, we propose the masking adaption, starting with a simple 4-point bottom face of the object. We apply the perspective warping through the dense matching of the basic plane to warp mask with correct shapes.
+          </p>
+        </div>
+        <br/>
+      </div>
+    </div>
+    <!--/ Animation. -->
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Animation. -->
+        <!-- Paper video. -->
+    <div class="columns is-centered">
+      <div class="column">
+          <h2 class="title is-3">Results of Scene Editing</h2>
+          <h2 class="title is-4">Results of multi-view inpainted images</h2>
+        <video autoplay loop muted controls>
+          <source src="static/videos/mvimgs.mp4" type="video/mp4">
+          Results of multi-view inpainted images
+        </video>
+          <h2 class="title is-4">Results of 3DGS</h2>
+        <video autoplay loop muted controls>
+          <source src="static/videos/3dgs.mp4" type="video/mp4">
+          Results of multi-view inpainted images
+        </video>
+      </div>
+  </div>
+  </div>
+  <!--/ Animation. -->
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Results of multi-view inpainting (object removal)</h2>
+        <div class="columns is-vcentered interpolation-panel">
+          <img src="./static/videos/removal.gif"
+               class="interpolation-image"
+               alt="Interpolate start reference image."/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-4">Results of object-level novel view synthesis</h2>
+        <div class="columns is-vcentered interpolation-panel">
+          <img src="./static/images/nvs_result.jpg"
+               class="interpolation-image"
+               alt="Interpolate start reference image."/>
+        </div>
+
+        <h2 class="title is-4">Results of replacement</h2>
+        <div class="columns is-vcentered interpolation-panel">
+          <img src="./static/images/replacement.jpg"
+               class="interpolation-image"
+               alt="Interpolate start reference image."/>
+        </div>
+
+        <h2 class="title is-4">Generalization of mask adaption</h2>
+        <div class="columns is-vcentered interpolation-panel">
+          <img src="./static/images/mask_adaption.jpg"
+               class="interpolation-image"
+               alt="Interpolate start reference image."/>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+      @article{
+      }
+    </code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/ewrfcas/MVInpainter" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you  are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
