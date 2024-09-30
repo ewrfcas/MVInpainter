@@ -1,14 +1,17 @@
 import collections
-from torch.utils.data import Dataset
-from glob import glob
-import torch.nn.functional as F
-from utils.masking import *
-from torchvision import transforms
-import pickle
-from tqdm import tqdm
-from easydict import EasyDict
-import os
 import hashlib
+import os
+import pickle
+from glob import glob
+
+import torch.nn.functional as F
+from easydict import EasyDict
+from torch.utils.data import Dataset
+from torchvision import transforms
+from tqdm import tqdm
+
+from utils.masking import *
+
 
 def _seq_name_to_seed(seq_name) -> int:
     return int(hashlib.sha1(seq_name.encode("utf-8")).hexdigest(), 16)

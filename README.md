@@ -7,6 +7,29 @@ Codes and models will be open-released soon!
 
 Codes organization is working in progress.
 
+### TODO List
+- [ ] Environment and dataset setup
+- [ ] Training codes
+- [ ] Inference models and pipeline
+
+## Preparation
+
+### Setup repository and environment
+```
+git clone https://github.com/ewrfcas/MVInpainter.git
+cd MVInpainter
+
+conda create -n mvinpainter python=3.8
+conda activate mvinpainter
+
+pip install -r requirements.txt
+mim install mmcv-full
+pip install mmflow
+
+# We need to replace the new decoder py of mmflow for faster flow estimation
+cp ./check_points/mmflow/raft_decoder.py /usr/local/conda/envs/mvinpainter/lib/python3.8/site-packages/mmflow/models/decoders/
+```
+
 
 ## Cite
 If you found our program helpful, please consider citing:

@@ -1,14 +1,17 @@
 import collections
-from torch.utils.data import Dataset
-from glob import glob
-from dataloaders.co3d_dataset import _seq_name_to_seed
-import torch.nn.functional as F
-from tqdm import tqdm
-from utils.masking import *
-from torchvision import transforms
-import pickle
-from easydict import EasyDict
 import os
+import pickle
+from glob import glob
+
+import torch.nn.functional as F
+from easydict import EasyDict
+from torch.utils.data import Dataset
+from torchvision import transforms
+from tqdm import tqdm
+
+from dataloaders.co3d_dataset import _seq_name_to_seed
+from utils.masking import *
+
 
 def process_prompt(prompt):
     prompt = prompt.replace("The video features", "").strip()

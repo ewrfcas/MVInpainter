@@ -1,9 +1,10 @@
-import numpy as np
-from torch.utils.data import Sampler
-import torch
-import random
-import math
 import collections
+import math
+import random
+
+import numpy as np
+import torch
+from torch.utils.data import Sampler
 
 
 # co3d is extremely unbalanced data, so we need to sample subset for each epoch during the training
