@@ -1,0 +1,39 @@
+dataset_root: "./data/CO3Dv2"
+
+train_list: "./data/co3dv2/train_list.txt"
+val_list: "./data/co3dv2/val_list.txt"
+
+train_n_samples_per_subset: 200 # 200
+val_n_samples_per_subset: 2 # 2
+
+load_caption: True
+caption_path: "./data/mv_data_captions"
+
+sort_frames: False # **false only used for ablation**, True
+train_random_frame_sample: True
+
+random_crop: False
+
+image_height: 512
+image_width: 512
+
+square_crop: True
+
+sampling_interval: "random_0.25" # ["random_0.25", "random_0.5", 1.0]
+
+train_masking_type: "random_object_mask" # "random_object_mask" # "random"
+train_masking_params: # hyper-parameters for 512 mask
+  upper: 0.4 # using random masks to up to the upper
+  lama_sample_probs: [ 0.15, 0.4, 0.25, 0.2 ] # [thin, medium, thick, rectangular] mask
+  lama_mask_rate: 0.4 # random lama masks
+  object_mask_rate: 0.85 # the rate of mask centric object
+  dilate_range: [15, 30] # dilate range for object mask
+  object_bbox_mask_rate: 0.3 # the bbox mask rate
+  object_irr_mask_rate: 0.99 # irregular mask rate
+  mask_enlarge: [0.0, 0.1]
+  pts_size: [15, 30]
+  width_range: [30, 60]
+
+val_masking_type: "bbox" #object_mask+bbox_mask
+val_masking_params:
+  obj_dilate: 30
