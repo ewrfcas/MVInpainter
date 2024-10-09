@@ -1,4 +1,4 @@
-pretrained_model_name_or_path: "runwayml/stable-diffusion-inpainting"
+pretrained_model_name_or_path: "./check_points/models--runwayml--stable-diffusion-inpainting/snapshots/51388a731f57604945fddd703ecb5c50e8e7b49d" # SD1.5-inpainting
 dataset_names: [ "co3dv2", "mvimagenet" ]
 
 center_crop: False
@@ -16,7 +16,7 @@ gradient_checkpointing: True
 allow_tf32: False # Whether or not to allow TF32 on Ampere GPUs. Can be used to speed up training.
 dataloader_num_workers: 12
 max_train_steps: null # Total number of training steps to perform.  If provided, overrides num_train_epochs.
-num_train_epochs: 200 # mvi+co3d，batch96*8=768 差不多470steps一个epoch，多帧率ft一般在2w，+新数据ft一般在9w6， 200epoch
+num_train_epochs: 200
 checkpointing_steps: 2000 # Save a checkpoint of the training state every X updates.
 checkpoints_total_limit: 5
 validation_epochs: 10 # Run validation every X epochs.

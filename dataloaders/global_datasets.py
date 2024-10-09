@@ -86,7 +86,7 @@ def load_global_dataset(config, dataset_names, rank=0, load_eval_pickle=False, c
             origin_dataname = dataset_name
             dataset_name = "co3dv2"
             if dataset_name not in cfg:
-                cfg[dataset_name] = EasyDict(OmegaConf.load(f"configs/datasets/{origin_dataname}_global.yaml"))
+                cfg[dataset_name] = EasyDict(OmegaConf.load(f"configs/datasets/co3dv2.yaml"))
             cfg[dataset_name].n_frames_per_sequence = config.n_frames_per_sequence
             cfg[dataset_name].image_height = img_size
             cfg[dataset_name].image_width = img_size
@@ -117,7 +117,7 @@ def load_global_dataset(config, dataset_names, rank=0, load_eval_pickle=False, c
             origin_dataname = dataset_name
             dataset_name = "mvimagenet"
             if dataset_name not in cfg:
-                cfg[dataset_name] = EasyDict(OmegaConf.load(f"configs/datasets/{origin_dataname}.yaml"))
+                cfg[dataset_name] = EasyDict(OmegaConf.load(f"configs/datasets/mvimagenet.yaml"))
             cfg[dataset_name].n_frames_per_sequence = config.n_frames_per_sequence
             cfg[dataset_name].image_height = img_size
             cfg[dataset_name].image_width = img_size
@@ -218,7 +218,7 @@ def load_global_dataset(config, dataset_names, rank=0, load_eval_pickle=False, c
             val_datasets.append(dataset_)
         elif dataset_name == "dl3dv":
             if dataset_name not in cfg:
-                cfg[dataset_name] = EasyDict(OmegaConf.load("configs/datasets/dl3dv_mixed.yaml"))
+                cfg[dataset_name] = EasyDict(OmegaConf.load("configs/datasets/dl3dv.yaml"))
             cfg[dataset_name].n_frames_per_sequence = config.n_frames_per_sequence
             cfg[dataset_name].image_height = img_size
             cfg[dataset_name].image_width = img_size

@@ -1,0 +1,22 @@
+dataset_root: "./data/RealEstate10K"
+
+train_list: "./data/real10k/train_list.txt"
+val_list: "./data/real10k/val_list.txt"
+
+train_n_samples_per_subset: 1 # 13645/0.5=6k
+val_n_samples_per_subset: 1 # 测试集50个场景
+
+sort_frames: True
+train_random_frame_sample: True
+
+image_height: 512
+image_width: 512
+
+min_interval: 6 # frame之间最小间隔
+max_interval: 18 # frame之间最大间隔
+
+train_masking_type: "random" # "random_object_mask" # "random"
+train_masking_params: null
+
+val_masking_type: "fixed"
+val_masking_params: null

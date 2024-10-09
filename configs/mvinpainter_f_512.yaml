@@ -1,0 +1,80 @@
+pretrained_model_name_or_path: "./check_points/models--runwayml--stable-diffusion-inpainting/snapshots/51388a731f57604945fddd703ecb5c50e8e7b49d" # SD1.5-inpainting
+dataset_names: [ "dl3dv",  "scannet++", "real10k" ]
+
+center_crop: False
+dynamic_sampling: True
+
+full_model_trainable: False
+zerosnr: True
+beta_schedule: "linear"
+
+n_frames_per_sequence: 12
+
+train_batch_size: 48 # Batch size (per device) for the training dataloader，必须是n_frames_per_seq的倍数
+gradient_accumulation_steps: 1 # Number of updates steps to accumulate before performing a backward/update pass.
+gradient_checkpointing: True
+allow_tf32: False # Whether or not to allow TF32 on Ampere GPUs. Can be used to speed up training.
+dataloader_num_workers: 12
+max_train_steps: null # Total number of training steps to perform.  If provided, overrides num_train_epochs.
+num_train_epochs: 300 # mvi+co3d，batch96*8=768 差不多470steps一个epoch，多帧率ft一般在2w，+新数据ft一般在9w6， 200epoch
+checkpointing_steps: 2000 # Save a checkpoint of the training state every X updates.
+checkpoints_total_limit: 5
+validation_epochs: 10 # Run validation every X epochs.
+
+# The prediction_type that shall be used for training. Choose between 'epsilon' or 'v_prediction' or leave `None`.
+# If left to `None` the default prediction type of the scheduler: `noise_scheduler.config.prediciton_type` is chosen.
+prediction_type: "v_prediction"
+use_ema: False # Whether to use EMA model.
+enable_xformers_memory_efficient_attention: False # torch>=2.0已经支持了flashattention2
+noise_offset: 0.0 # The scale of noise offset.
+input_perturbation: 0.0 # The scale of input perturbation. Recommended 0.1.
+
+caption_model: null # "blip"
+caption_suffix: null # "It is captured as a video from objective-centered perspective, while the camera is revolving around the scene."
+use_animatediff: True
+
+model_cfg:
+  lora_spatial: True
+  lora_rank: 128
+  trainable_text_encoder: True # make text_encoder trainable
+  prompt_length: 32
+  cfg_training_rate: 0.0
+  add_model_cfg:
+    positional_embeddings: "sinusoidal"
+    max_seq_length: 12
+    ref_key_value_attn: True # additional key/value from reference view for self-attention
+    n_frame: 12
+    enable_flow: True # ablation for flow
+    cross_view_pe: True
+    flow_cfg:
+        name: "slot_attention+cross_attn"
+        num_slots: 4
+        encoder_dims: 256
+        out_channels: 768
+        zero_output: False
+        max_shape: [11, 16, 16]
+        encoder_type: "default_16" # "sparseconv3d_16"
+        q_type: "slot" # only used for slot_attn2d ("qformer" is for use_mask=True, "slot" is for use_mask=False
+        use_mask: false
+        gru_iters: 3 # only used for slot_attn2d
+        slot_type: "slot_attn3d"
+        layers: 3 # only used for slot_attn3d
+        num_global_slots: 0 # only for slot_attn3d
+    flow_CFG_rate: 0.0
+
+opt_cfg:
+  learning_rate: 7.0e-5 # Initial learning rate (after the potential warmup period) to use.
+  sd_lr: 2.0e-5 # learning rate of original SD backbone
+  prompt_lr: 3.0e-5
+  scale_lr: False # Scale the learning rate by the number of GPUs, gradient accumulation steps, and batch size.
+  # lr_scheduler: "constant_with_warmup" # ["linear", "cosine", "cosine_with_restarts", "polynomial", "constant", "constant_with_warmup"]
+  lr_scheduler: "constant_with_warmup"
+  lr_warmup_steps: 500 # Number of steps for the warmup in the lr scheduler.
+  snr_gamma: null # 'None' means constant 1. SNR weighting gamma to be used if rebalancing the loss. Recommended value is 5.0.
+  use_8bit_adam: False
+
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_weight_decay: 0.01
+  adam_epsilon: 1.0e-8
+  max_grad_norm: 1.0
