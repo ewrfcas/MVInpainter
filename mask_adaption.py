@@ -1,16 +1,16 @@
-from glob import glob
-import matplotlib.pyplot as plt
-import cv2
-import numpy as np
-from PIL import Image
-import torch
-import os
-from utils.masking import random_irregular_object_mask
 import argparse
-from roma import roma_outdoor
+import json
+import os
+from glob import glob
+
+import cv2
+import matplotlib.pyplot as plt
+import numpy as np
 import torch
 from tqdm import tqdm
-import json
+
+from roma import roma_outdoor
+from utils.masking import random_irregular_object_mask
 
 
 def draw_dashed_polyline(img, pts, color, thickness, dash_length):
