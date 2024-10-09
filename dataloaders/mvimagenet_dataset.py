@@ -163,7 +163,7 @@ class MVImageNetDataset(Dataset):
         self.inverse_crop = inverse_crop
         self.longest_resize = kwargs.get("longest_resize", False)
         self.load_caption = load_caption
-        self.caption_path = caption_path # mnt_jianchong/caochenjie.ccj/captions
+        self.caption_path = caption_path
         self.transform = transforms.Compose([transforms.ToTensor(),
                                              transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
