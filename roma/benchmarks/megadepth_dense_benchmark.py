@@ -1,10 +1,11 @@
 import torch
-import numpy as np
 import tqdm
+from torch.utils.data import ConcatDataset
+
+import roma
 from roma.datasets import MegadepthBuilder
 from roma.utils import warp_kpts
-from torch.utils.data import ConcatDataset
-import roma
+
 
 class MegadepthDenseBenchmark:
     def __init__(self, data_root="data/megadepth", h = 384, w = 512, num_samples = 2000) -> None:

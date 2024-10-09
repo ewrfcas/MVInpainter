@@ -1,11 +1,11 @@
-from PIL import Image
-import numpy as np
-
 import os
 
-from tqdm import tqdm
-from roma.utils import pose_auc
 import cv2
+import numpy as np
+from PIL import Image
+from tqdm import tqdm
+
+from roma.utils import pose_auc
 
 
 class HpatchesHomogBenchmark:

@@ -3,9 +3,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from roma.utils.utils import get_grid
-from .layers.block import Block
-from .layers.attention import MemEffAttention
 from .dinov2 import vit_large
+from .layers.attention import MemEffAttention
+from .layers.block import Block
+
 
 class TransformerDecoder(nn.Module):
     def __init__(self, blocks, hidden_dim, out_dim, is_classifier = False, *args, 

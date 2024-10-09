@@ -1,11 +1,13 @@
+import gc
 import os
+
 import torch
+from loguru import logger
 from torch.nn.parallel.data_parallel import DataParallel
 from torch.nn.parallel.distributed import DistributedDataParallel
-from loguru import logger
-import gc
 
 import roma
+
 
 class CheckPoint:
     def __init__(self, dir=None, name="tmp"):

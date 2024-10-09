@@ -1,11 +1,13 @@
-from inspect import isfunction
 import math
+from inspect import isfunction
+
 import torch
 import torch.nn.functional as F
-from torch import nn, einsum
 from einops import rearrange, repeat
+from torch import nn, einsum
 
 from models.vae.util import checkpoint
+
 try:
     import xformers
     import xformers.ops

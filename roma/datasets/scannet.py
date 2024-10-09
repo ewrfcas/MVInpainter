@@ -1,23 +1,17 @@
 import os
-import random
-from PIL import Image
+import os.path as osp
+
 import cv2
-import h5py
+import kornia.augmentation as K
 import numpy as np
 import torch
-from torch.utils.data import (
-    Dataset,
-    DataLoader,
-    ConcatDataset)
+from PIL import Image
+from tqdm import tqdm
 
-import torchvision.transforms.functional as tvf
-import kornia.augmentation as K
-import os.path as osp
-import matplotlib.pyplot as plt
 import roma
 from roma.utils import get_depth_tuple_transform_ops, get_tuple_transform_ops
 from roma.utils.transforms import GeometricSequential
-from tqdm import tqdm
+
 
 class ScanNetScene:
     def __init__(self, data_root, scene_info, ht = 384, wt = 512, min_overlap=0., shake_t = 0, rot_prob=0.,use_horizontal_flip_aug = False,

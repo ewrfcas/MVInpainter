@@ -1,11 +1,10 @@
 import numpy as np
 import torch
-from roma.utils import *
 from PIL import Image
 from tqdm import tqdm
-import torch.nn.functional as F
-import roma
-import kornia.geometry.epipolar as kepi
+
+from roma.utils import *
+
 
 class MegaDepthPoseEstimationBenchmark:
     def __init__(self, data_root="data/megadepth", scene_names = None) -> None:

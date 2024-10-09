@@ -1,8 +1,10 @@
-from tqdm import tqdm
-from roma.utils.utils import to_cuda
-import roma
 import torch
 import wandb
+from tqdm import tqdm
+
+import roma
+from roma.utils.utils import to_cuda
+
 
 def log_param_statistics(named_parameters, norm_type = 2):
     named_parameters = list(named_parameters)

@@ -8,10 +8,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn import ConvModule
 from mmcv.runner import BaseModule
-
 from mmflow.ops import build_operators
-from ..builder import DECODERS, build_loss
+
 from .base_decoder import BaseDecoder
+from ..builder import DECODERS, build_loss
 
 
 class CorrelationPyramid(BaseModule):

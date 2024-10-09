@@ -1,8 +1,9 @@
 import torch
 import torch.nn as nn
+
+from models.vae.distributions import DiagonalGaussianDistribution
 from models.vae.model import Encoder
 from models.vae.my_decoder_large2 import Decoder
-from models.vae.distributions import DiagonalGaussianDistribution
 
 
 class AutoencoderKL(nn.Module):

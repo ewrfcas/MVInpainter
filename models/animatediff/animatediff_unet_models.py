@@ -26,11 +26,6 @@ from diffusers.models.attention_processor import (
 )
 from diffusers.models.embeddings import TimestepEmbedding, Timesteps
 from diffusers.utils import BaseOutput
-from diffusers.utils import (
-    deprecate,
-    is_torch_version,
-    logging,
-)
 from einops import rearrange, repeat
 
 from models.animatediff.unet_blocks import (

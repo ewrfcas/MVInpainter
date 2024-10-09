@@ -1,9 +1,11 @@
 import os.path as osp
+
 import numpy as np
 import torch
-from roma.utils import *
 from PIL import Image
 from tqdm import tqdm
+
+from roma.utils import *
 
 
 class ScanNetBenchmark:

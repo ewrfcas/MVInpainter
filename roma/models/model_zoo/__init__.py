@@ -1,5 +1,5 @@
-from typing import Union
 import torch
+
 from .roma_models import roma_model
 
 weight_urls = {

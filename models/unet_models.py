@@ -28,15 +28,8 @@ from diffusers.models.attention_processor import (
 from diffusers.models.embeddings import TimestepEmbedding, Timesteps
 from diffusers.utils import BaseOutput
 from diffusers.utils import (
-    FLAX_WEIGHTS_NAME,
-    SAFETENSORS_WEIGHTS_NAME,
-    WEIGHTS_NAME,
     _add_variant,
     _get_model_file,
-    deprecate,
-    is_accelerate_available,
-    is_torch_version,
-    logging,
 )
 
 from models.configuration_utils import *

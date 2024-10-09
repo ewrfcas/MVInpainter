@@ -1,13 +1,14 @@
 # pytorch_diffusion + derived encoder decoder
 import math
+
+import numpy as np
 import torch
 import torch.nn as nn
-import numpy as np
-from einops import rearrange
 import torch.nn.functional as F
+from einops import rearrange
 
-from models.vae.util import instantiate_from_config
 from models.vae.attention import LinearAttention
+from models.vae.util import instantiate_from_config
 
 try:
     import xformers

@@ -1,19 +1,20 @@
-import os
 import math
+import os
+import warnings
+from warnings import warn
+
 import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from einops import rearrange
-import warnings
-from warnings import warn
 from PIL import Image
+from einops import rearrange
 
-import roma
 from roma.utils import get_tuple_transform_ops
+from roma.utils.kde import kde
 from roma.utils.local_correlation import local_correlation
 from roma.utils.utils import cls_to_flow_refine
-from roma.utils.kde import kde
+
 
 class ConvRefiner(nn.Module):
     def __init__(

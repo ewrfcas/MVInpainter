@@ -3,8 +3,9 @@ import logging
 import math
 import random
 from enum import Enum
-import numpy as np
+
 import cv2
+import numpy as np
 
 
 class LinearRamp:

@@ -8,9 +8,8 @@
 #   https://github.com/facebookresearch/dino/blob/main/vision_transformer.py
 #   https://github.com/rwightman/pytorch-image-models/tree/master/timm/models/vision_transformer.py
 
-from functools import partial
 import math
-import logging
+from functools import partial
 from typing import Sequence, Tuple, Union, Callable
 
 import torch
@@ -19,7 +18,6 @@ import torch.utils.checkpoint
 from torch.nn.init import trunc_normal_
 
 from .layers import Mlp, PatchEmbed, SwiGLUFFNFused, MemEffAttention, NestedTensorBlock as Block
-
 
 
 def named_apply(fn: Callable, module: nn.Module, name="", depth_first=True, include_root=False) -> nn.Module:

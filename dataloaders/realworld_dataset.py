@@ -1,12 +1,13 @@
 import collections
 import os.path
-
-from torch.utils.data import Dataset
 from glob import glob
-from utils.masking import *
-from torchvision import transforms
+
 from easydict import EasyDict
+from torch.utils.data import Dataset
+from torchvision import transforms
 from tqdm import tqdm
+
+from utils.masking import *
 
 
 def square_crop(image, mask):

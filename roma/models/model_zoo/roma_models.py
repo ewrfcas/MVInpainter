@@ -1,9 +1,7 @@
-import warnings
-import torch.nn as nn
-import torch
+from roma.models.matcher import *
 from roma.models.matcher import *
 from roma.models.transformer import Block, TransformerDecoder, MemEffAttention
-from roma.models.encoders import *
+
 
 def roma_model(resolution, upsample_preds, device = None, weights=None, dinov2_weights=None, amp_dtype: torch.dtype=torch.float16, **kwargs):
     # roma weights and dinov2 weights are loaded seperately, as dinov2 weights are not parameters

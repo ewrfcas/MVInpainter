@@ -6,6 +6,7 @@ import torch.nn.functional as F
 from models.animatediff.attention import Attention, FeedForward
 from models.position_encoding import PositionEncodingSine2DNorm, PositionEncodingSine3DNorm
 
+
 def zero_module(module):
     """
     Zero out the parameters of a module and return it.

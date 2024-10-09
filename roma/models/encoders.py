@@ -1,10 +1,6 @@
-from typing import Optional, Union
 import torch
-from torch import device
 import torch.nn as nn
-import torch.nn.functional as F
 import torchvision.models as tvm
-import gc
 
 
 class ResNet50(nn.Module):
