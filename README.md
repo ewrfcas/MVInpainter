@@ -92,7 +92,7 @@ CUDA_VISIBLE_DEVICES=0 python test_removal.py \
   --dataset_root="./demo/removal" \
   --output_path="demo_removal" \
   --resume_from_checkpoint="best" \
-  --val_cfg=5.0 \
+  --val_cfg=1.0 \
   --img_size=256 \
   --sampling_interval=1.0 \
   --dataset_names realworld \
