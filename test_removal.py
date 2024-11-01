@@ -36,6 +36,7 @@ from models.unet_models import UNet3DConditionModel
 from train import get_flow
 from utils.model_setting import get_caption_model
 from utils.others import get_clip_score, get_lpips_score, get_captions
+from diffusers import DDIMScheduler
 
 
 def log_validation(accelerator, config, args, vae, text_encoder, tokenizer, unet, weight_dtype, val_dataloader,
@@ -49,12 +50,19 @@ def log_validation(accelerator, config, args, vae, text_encoder, tokenizer, unet
     loss_fn_alex = lpips.LPIPS(net='alex').to(device).eval()
     flow_net = kwargs.get("flow_net", None)
 
+    scheduler = DDIMScheduler.from_pretrained(config.pretrained_model_name_or_path,
+                                              subfolder="scheduler", local_files_only=True,
+                                              rescale_betas_zero_snr=config.zerosnr,
+                                              prediction_type=config.prediction_type,
+                                              beta_schedule=config.beta_schedule)
+
     pipeline = StableDiffusionInpaint3DPipeline.from_pretrained(
         config.pretrained_model_name_or_path,
         vae=accelerator.unwrap_model(vae),
         text_encoder=accelerator.unwrap_model(text_encoder),
         tokenizer=tokenizer,
         unet=accelerator.unwrap_model(unet),
+        scheduler=scheduler,
         safety_checker=None,
         torch_dtype=weight_dtype,
     )
@@ -168,6 +176,8 @@ def log_validation(accelerator, config, args, vae, text_encoder, tokenizer, unet
                             flow = visualize_flow(flows[fi]) / 255
                             masked_flows.append(flow)
                         masked_flows = [np.zeros_like(masked_flows[0])] + masked_flows
+                        masked_flows =[cv2.resize(mf, (init_image.shape[2], init_image.shape[1])) for mf in masked_flows]
+                        masked_flows = np.stack(masked_flows, axis=0)
                         show_image = np.concatenate([init_image, masked_image, masked_flows, preds], axis=1)
                     else:
                         show_image = np.concatenate([init_image, masked_image, preds], axis=1)

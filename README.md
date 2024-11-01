@@ -7,7 +7,7 @@
 - [x] Environment and dataset setup
 - [x] Training codes
 - [x] Inference models and pipeline
-- [ ] Release better models for 512x512 resolution
+- [x] Release better models for 512x512 resolution
 
 ## Preparation
 
@@ -30,13 +30,13 @@ cp ./check_points/mmflow/raft_decoder.py /usr/local/conda/envs/mvinpainter/lib/p
 ### Dataset preparation (training)
 1. Downloading [Co3dv2](https://github.com/facebookresearch/co3d), [MVImgNet](https://github.com/GAP-LAB-CUHK-SZ/MVImgNet) for MVInpainter-O.
 Downloading [Real10k](https://google.github.io/realestate10k/download.html), [DL3DV](https://github.com/DL3DV-10K/Dataset), [Scannet++](https://kaldir.vc.in.tum.de/scannetpp) for MVInpainter-F.
-2. Downloading information of indices, masking formats, and captions from [Link](https://huggingface.co/ewrfcas/MVInpainter/resolve/main/data.zip?download=true). Put them to `./data`. 
-Note that we remove some dirty samples from aforementioned datasets. Since Co3dv2 data contains object masks but MVImgNet does not, we additionally provide complete [foreground masks](https://huggingface.co/ewrfcas/MVInpainter/resolve/main/mvimagenet_masks.zip?download=true) for MVImgNet through `CarveKit`. Please put the MVImgNet masks to `./data/mvimagenet/masks`.
+2. Downloading information of indices, masking formats, and captions from [Link](https://huggingface.co/ewrfcas/MVInpainter/resolve/main/data.zip). Put them to `./data`. 
+Note that we remove some dirty samples from aforementioned datasets. Since Co3dv2 data contains object masks but MVImgNet does not, we additionally provide complete [foreground masks](https://huggingface.co/ewrfcas/MVInpainter/resolve/main/mvimagenet_masks.zip) for MVImgNet through `CarveKit`. Please put the MVImgNet masks to `./data/mvimagenet/masks`.
 
 ### Pretrained weights
-1. [RAFT weights](https://huggingface.co/ewrfcas/MVInpainter/resolve/main/raft_8x2_100k_mixed_368x768.pth?download=true) (put it to `./check_points/mmflow/`).
-2. [SD1.5-inpainting](https://huggingface.co/ewrfcas/MVInpainter/resolve/main/models--runwayml--stable-diffusion-inpainting.zip?download=true)  (put it to `./check_points/`).
-3. [AnimateDiff weights](https://huggingface.co/ewrfcas/MVInpainter/resolve/main/AnimateDiff.zip?download=true). We revise the key name for easier `peft` usages (put it to `./check_points/`).
+1. [RAFT weights](https://huggingface.co/ewrfcas/MVInpainter/resolve/main/raft_8x2_100k_mixed_368x768.pth) (put it to `./check_points/mmflow/`).
+2. [SD1.5-inpainting](https://huggingface.co/ewrfcas/MVInpainter/resolve/main/models--runwayml--stable-diffusion-inpainting.zip)  (put it to `./check_points/`).
+3. [AnimateDiff weights](https://huggingface.co/ewrfcas/MVInpainter/resolve/main/AnimateDiff.zip). We revise the key name for easier `peft` usages (put it to `./check_points/`).
 
 ## Training
 
@@ -72,8 +72,10 @@ Please use `mvinpainter_{o,f}_512.yaml` to train 512x512 models.
 ## Inference
 
 ### Model weights
-1. [MVSInpainter-O](https://huggingface.co/ewrfcas/MVInpainter/resolve/main/mvinpainter_o_256.zip?download=true) (Novel view synthesis, put it to `./check_points/`).
-2. [MVSInpainter-F](https://huggingface.co/ewrfcas/MVInpainter/resolve/main/mvinpainter_f_256.zip?download=true) (Removal, put it to `./check_points/`).
+1. [MVInpainter-O](https://huggingface.co/ewrfcas/MVInpainter/resolve/main/mvinpainter_o_256.zip) (Novel view synthesis, put it to `./check_points/`).
+2. [MVInpainter-F](https://huggingface.co/ewrfcas/MVInpainter/resolve/main/mvinpainter_f_256.zip) (Removal, put it to `./check_points/`).
+3. [MVInpainter-O-512](https://huggingface.co/ewrfcas/MVInpainter/resolve/main/mvinpainter_o_512.zip)
+4. [MVInpainter-F-512](https://huggingface.co/ewrfcas/MVInpainter/resolve/main/mvinpainter_f_512.zip)
 
 ### Pipeline
 
@@ -93,12 +95,25 @@ CUDA_VISIBLE_DEVICES=0 python test_removal.py \
   --output_path="demo_removal" \
   --resume_from_checkpoint="best" \
   --val_cfg=1.0 \
-  --img_size=256 \
+  --img_size=256 \ 
   --sampling_interval=1.0 \
   --dataset_names realworld \
   --reference_path="inpainted" \
   --nframe=24 \
   --save_images # (whether to save samples respectively)
+  
+CUDA_VISIBLE_DEVICES=0 python test_removal.py \
+  --load_path="check_points/mvinpainter_f_512" \
+  --dataset_root="./demo/removal" \
+  --output_path="demo_removal" \
+  --resume_from_checkpoint="best" \
+  --val_cfg=1.0 \
+  --img_size=512 \ 
+  --sampling_interval=1.0 \
+  --dataset_names realworld \
+  --reference_path="inpainted" \
+  --nframe=24 \
+  --save_images
 ```
 ![removal](assets/kitchen_DSCF0676_removal_seq_0.jpg)
 
@@ -134,6 +149,20 @@ CUDA_VISIBLE_DEVICES=0 python test_nvs.py \
   --val_cfg=7.5 \
   --img_height=256 \
   --img_width=256 \
+  --sampling_interval=1.0 \
+  --nframe=24 \
+  --prompt="a red apple with circle and round shape on the table." \
+  --limit_frame=24
+  
+CUDA_VISIBLE_DEVICES=0 python test_nvs.py \
+  --load_path="check_points/mvinpainter_o_512" \
+  --dataset_root="./demo/nvs" \
+  --output_path="demo_nvs" \
+  --edited_index=0 \
+  --resume_from_checkpoint="best" \
+  --val_cfg=7.5 \
+  --img_height=512 \
+  --img_width=512 \
   --sampling_interval=1.0 \
   --nframe=24 \
   --prompt="a red apple with circle and round shape on the table." \
