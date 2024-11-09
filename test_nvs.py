@@ -29,7 +29,6 @@ from models.animatediff.animatediff_unet_models import AnimateDiffModel
 from models.prompt_clip import PromptCLIP
 from models.unet_models import UNet3DConditionModel
 from train import get_flow
-from utils.model_setting import get_caption_model
 from diffusers import DDIMScheduler
 
 
@@ -82,7 +81,7 @@ def mask_crop(image, mask, flow=None):
 
 
 def log_validation(accelerator, config, args, vae, text_encoder, tokenizer, unet, weight_dtype, val_dataloader,
-                   prompt_text, device, caption_processor=None, caption_model=None, **kwargs):
+                   prompt_text, device, **kwargs):
     if accelerator.is_main_process:
         os.makedirs(f"outputs/{args.output_path}", exist_ok=True)
         accelerator.print(f"Validation start")
@@ -349,11 +348,6 @@ if __name__ == '__main__':
         return [deepspeed_plugin.zero3_init_context_manager(enable=False)]
 
 
-    caption_processor, caption_model = None, None
-    with ContextManagers(deepspeed_zero_init_disabled_context_manager()):
-        if hasattr(config, "caption_model") and config.caption_model is not None:
-            caption_processor, caption_model = get_caption_model(config.caption_model)
-
     with ContextManagers(deepspeed_zero_init_disabled_context_manager()):
         print('load vae')
         vae = AutoencoderKL.from_pretrained(f"{config.pretrained_model_name_or_path}/vae", subfolder="vae")
@@ -460,8 +454,6 @@ if __name__ == '__main__':
     if not config.model_cfg.trainable_text_encoder:
         text_encoder.to(accelerator.device, dtype=weight_dtype)
     vae.to(accelerator.device, dtype=weight_dtype)
-    if caption_model is not None:
-        caption_model.to(accelerator.device, dtype=weight_dtype)
 
     log_validation(
         accelerator=accelerator,
@@ -475,7 +467,5 @@ if __name__ == '__main__':
         val_dataloader=val_dataloader,
         prompt_text=prompt_text,
         device=device,
-        caption_processor=caption_processor,
-        caption_model=caption_model,
         flow_net=flow_net
     )

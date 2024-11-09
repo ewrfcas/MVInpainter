@@ -16,10 +16,8 @@ def get_weight_path(model_name):
 
 def get_caption_model(model_name):
     if model_name == "blip":
-        processor = AutoProcessor.from_pretrained("./check_points/huggingface/hub/models--Salesforce--blip-image-captioning-large/snapshots/2227ac38c9f16105cb0412e7cab4759978a8fd90",
-                                                  local_files_only=True)
-        model = BlipForConditionalGeneration.from_pretrained("./check_points/huggingface/hub/models--Salesforce--blip-image-captioning-large/snapshots/2227ac38c9f16105cb0412e7cab4759978a8fd90",
-                                                             torch_dtype=torch.float16, local_files_only=True)
+        processor = AutoProcessor.from_pretrained("Salesforce/blip-image-captioning-large")
+        model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-large", torch_dtype=torch.float16)
         return processor, model
     else:
         raise NotImplementedError
